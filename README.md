@@ -1,0 +1,1508 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raxx - Diamond Game & Pulsa All Operator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #6c5ce7;
+            --secondary-color: #a363d9;
+            --accent-color: #00d2d3;
+            --dark-color: #2d3436;
+            --light-color: #f5f6fa;
+            --success-color: #00b894;
+            --warning-color: #fdcb6e;
+            --danger-color: #d63031;
+            --gradient: linear-gradient(135deg, #6c5ce7, #a363d9);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-brand i {
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        .nav-brand h1 {
+            font-size: 1.5rem;
+            background: var(--gradient);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--primary-color);
+        }
+
+        .nav-auth {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-login,
+        .btn-register {
+            text-decoration: none;
+            padding: 8px 20px;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-login {
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+
+        .btn-register {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .btn-login:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-register:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--gradient);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 100px 0;
+        }
+
+        .hero-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .hero-content h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            text-decoration: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--primary-color);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,255,255,0.3);
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary-color);
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 50px;
+        }
+
+        .stat-item h3 {
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+        .stat-item p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Section Header */
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            color: var(--dark-color);
+            margin-bottom: 10px;
+        }
+
+        .section-header p {
+            color: #666;
+        }
+
+        /* Featured Games */
+        .featured-games {
+            padding: 80px 0;
+            background: var(--light-color);
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .game-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .game-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .game-info {
+            padding: 20px;
+        }
+
+        .game-info h3 {
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+
+        .game-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .btn-buy {
+            width: 100%;
+            padding: 10px;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .btn-buy:hover {
+            opacity: 0.9;
+        }
+
+        /* Pulsa Section */
+        .pulsa-section {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .operator-filter {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 20px;
+            border: 1px solid var(--primary-color);
+            background: transparent;
+            color: var(--primary-color);
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--gradient);
+            color: white;
+            border-color: transparent;
+        }
+
+        .pulsa-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .pulsa-card {
+            background: var(--light-color);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .pulsa-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .pulsa-card img {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 15px;
+        }
+
+        .pulsa-card h3 {
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+
+        .pulsa-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background: var(--gradient);
+            color: white;
+        }
+
+        .features .section-header h2,
+        .features .section-header p {
+            color: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-card i {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 10px;
+        }
+
+        /* How to Order */
+        .how-to-order {
+            padding: 80px 0;
+            background: var(--light-color);
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .step {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+
+        .step i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .step h3 {
+            margin-bottom: 10px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: modalSlideIn 0.3s;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-color);
+        }
+
+        .close {
+            font-size: 2rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close:hover {
+            color: var(--danger-color);
+        }
+
+        .product-info {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: var(--light-color);
+            border-radius: 10px;
+        }
+
+        .product-info img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .product-info h3 {
+            margin-bottom: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .form-group small {
+            display: block;
+            margin-top: 5px;
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        .order-summary {
+            background: var(--light-color);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .order-summary h4 {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .summary-item.total {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+
+        .btn-order {
+            width: 100%;
+            padding: 15px;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .btn-order:hover {
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 50px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+
+        .footer-section p {
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .footer-section ul li a:hover {
+            opacity: 1;
+        }
+
+        .footer-section ul li i {
+            margin-right: 10px;
+            color: var(--accent-color);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .payment-methods {
+            display: flex;
+            gap: 15px;
+            font-size: 1.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu,
+            .nav-auth {
+                display: none;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-content h2 {
+                font-size: 1.5rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            padding: 15px 25px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 3000;
+            animation: slideIn 0.3s;
+        }
+
+        .notification.success {
+            border-left: 4px solid var(--success-color);
+        }
+
+        .notification.error {
+            border-left: 4px solid var(--danger-color);
+        }
+
+        .notification.info {
+            border-left: 4px solid var(--primary-color);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fas fa-bolt"></i>
+                <h1>Raxx</h1>
+            </div>
+            <div class="nav-menu">
+                <a href="#home" class="active">Home</a>
+                <a href="#game">Game</a>
+                <a href="#pulsa">Pulsa</a>
+                <a href="#transaksi">Cek Transaksi</a>
+                <a href="#kontak">Kontak</a>
+            </div>
+            <div class="nav-auth">
+                <a href="#" class="btn-login">Login</a>
+                <a href="#" class="btn-register">Daftar</a>
+            </div>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Topup Diamond Game & Pulsa</h1>
+                <h2>Semua Operator Termurah Se-Indonesia</h2>
+                <p>Proses cepat, harga termurah, dan 100% aman</p>
+                <div class="hero-buttons">
+                    <a href="#game" class="btn-primary">Beli Diamond</a>
+                    <a href="#pulsa" class="btn-secondary">Beli Pulsa</a>
+                </div>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <h3>10K+</h3>
+                    <p>Pelanggan</p>
+                </div>
+                <div class="stat-item">
+                    <h3>5 Menit</h3>
+                    <p>Proses Cepat</p>
+                </div>
+                <div class="stat-item">
+                    <h3>24/7</h3>
+                    <p>Layanan</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Games -->
+    <section id="game" class="featured-games">
+        <div class="container">
+            <div class="section-header">
+                <h2>Game Populer</h2>
+                <p>Topup diamond game favorit kamu dengan harga termurah</p>
+            </div>
+            <div class="games-grid" id="gamesContainer"></div>
+        </div>
+    </section>
+
+    <!-- Pulsa Section -->
+    <section id="pulsa" class="pulsa-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Pulsa All Operator</h2>
+                <p>Isi pulsa semua operator dengan harga terbaik</p>
+            </div>
+            
+            <div class="operator-filter">
+                <button class="filter-btn active" data-operator="all">Semua</button>
+                <button class="filter-btn" data-operator="telkomsel">Telkomsel</button>
+                <button class="filter-btn" data-operator="indosat">Indosat</button>
+                <button class="filter-btn" data-operator="xl">XL</button>
+                <button class="filter-btn" data-operator="tri">Tri</button>
+                <button class="filter-btn" data-operator="axis">Axis</button>
+                <button class="filter-btn" data-operator="smart">Smart</button>
+            </div>
+
+            <div class="pulsa-grid" id="pulsaContainer"></div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Mengapa Memilih Kami?</h2>
+                <p>Kami memberikan pelayanan terbaik untuk kepuasan Anda</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Proses Cepat</h3>
+                    <p>Topup diamond dan pulsa dalam hitungan detik</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>100% Aman</h3>
+                    <p>Transaksi terjamin aman dan terpercaya</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-headset"></i>
+                    <h3>Support 24/7</h3>
+                    <p>Customer service siap membantu 24 jam</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-wallet"></i>
+                    <h3>Banyak Metode</h3>
+                    <p>Berbagai metode pembayaran tersedia</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Order -->
+    <section class="how-to-order">
+        <div class="container">
+            <div class="section-header">
+                <h2>Cara Order</h2>
+                <p>Mudah dan cepat, ikuti langkah-langkah berikut</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <i class="fas fa-gamepad"></i>
+                    <h3>Pilih Produk</h3>
+                    <p>Pilih game atau pulsa yang ingin di topup</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <i class="fas fa-pencil-alt"></i>
+                    <h3>Masukkan Data</h3>
+                    <p>Isi User ID/No HP dengan benar</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <i class="fas fa-credit-card"></i>
+                    <h3>Pembayaran</h3>
+                    <p>Pilih metode pembayaran</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Topup Otomatis</h3>
+                    <p>Diamond/pulsa akan masuk otomatis</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Modal -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Detail Pemesanan</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="product-info">
+                    <img id="modalProductImage" src="" alt="Product">
+                    <div>
+                        <h3 id="modalProductName"></h3>
+                        <p class="product-price" id="modalProductPrice"></p>
+                    </div>
+                </div>
+                
+                <form id="orderForm">
+                    <div class="form-group">
+                        <label for="userId">User ID / No. HP</label>
+                        <input type="text" id="userId" name="userId" placeholder="Masukkan User ID atau No. HP" required>
+                        <small>Contoh: 123456789 (Mobile Legends) atau 08123456789 (Pulsa)</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="zoneId">Zone ID (Opsional)</label>
+                        <input type="text" id="zoneId" name="zoneId" placeholder="Masukkan Zone ID jika ada">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="paymentMethod">Metode Pembayaran</label>
+                        <select id="paymentMethod" name="paymentMethod" required>
+                            <option value="">Pilih metode pembayaran</option>
+                            <option value="bca">Bank BCA</option>
+                            <option value="mandiri">Bank Mandiri</option>
+                            <option value="bri">Bank BRI</option>
+                            <option value="bni">Bank BNI</option>
+                            <option value="gopay">GoPay</option>
+                            <option value="ovo">OVO</option>
+                            <option value="dana">DANA</option>
+                            <option value="shopeepay">ShopeePay</option>
+                            <option value="alfamart">Alfamart</option>
+                            <option value="indomaret">Indomaret</option>
+                        </select>
+                    </div>
+                    
+                    <div class="order-summary">
+                        <h4>Ringkasan Pesanan</h4>
+                        <div class="summary-item">
+                            <span>Harga</span>
+                            <span id="summaryPrice"></span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Biaya Layanan</span>
+                            <span>Rp 1.000</span>
+                        </div>
+                        <div class="summary-item total">
+                            <span>Total</span>
+                            <span id="summaryTotal"></span>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn-order">Buat Pesanan</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Tentang Kami</h3>
+                    <p>Raxx adalah platform topup diamond game dan pulsa termurah di Indonesia. Kami menyediakan layanan cepat, aman, dan terpercaya.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Game Populer</h3>
+                    <ul>
+                        <li><a href="#">Mobile Legends</a></li>
+                        <li><a href="#">Free Fire</a></li>
+                        <li><a href="#">PUBG Mobile</a></li>
+                        <li><a href="#">Genshin Impact</a></li>
+                        <li><a href="#">Valorant</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Layanan</h3>
+                    <ul>
+                        <li><a href="#">Pulsa All Operator</a></li>
+                        <li><a href="#">Paket Data</a></li>
+                        <li><a href="#">Voucher Game</a></li>
+                        <li><a href="#">Topup E-Wallet</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Kontak</h3>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> 0812-3456-7890</li>
+                        <li><i class="fas fa-envelope"></i> support@raxx.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Jakarta, Indonesia</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Raxx. All rights reserved.</p>
+                <div class="payment-methods">
+                    <i class="fab fa-cc-visa"></i>
+                    <i class="fab fa-cc-mastercard"></i>
+                    <i class="fab fa-cc-paypal"></i>
+                    <i class="fas fa-credit-card"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Data dummy untuk produk
+        const games = [
+            {
+                id: 1,
+                name: "Mobile Legends",
+                category: "game",
+                image: "https://via.placeholder.com/300x150/6c5ce7/ffffff?text=MLBB",
+                price: 15000,
+                description: "86 Diamonds"
+            },
+            {
+                id: 2,
+                name: "Free Fire",
+                category: "game",
+                image: "https://via.placeholder.com/300x150/a363d9/ffffff?text=Free+Fire",
+                price: 10000,
+                description: "70 Diamonds"
+            },
+            {
+                id: 3,
+                name: "PUBG Mobile",
+                category: "game",
+                image: "https://via.placeholder.com/300x150/00d2d3/ffffff?text=PUBG",
+                price: 20000,
+                description: "60 UC"
+            },
+            {
+                id: 4,
+                name: "Genshin Impact",
+                category: "game",
+                image: "https://via.placeholder.com/300x150/2d3436/ffffff?text=Genshin",
+                price: 25000,
+                description: "60 Genesis Crystals"
+            }
+        ];
+
+        const pulsaPackages = [
+            {
+                id: 101,
+                operator: "telkomsel",
+                name: "Telkomsel 5K",
+                image: "https://via.placeholder.com/60x60/6c5ce7/ffffff?text=TSEL",
+                price: 5500,
+                description: "Pulsa Rp5.000"
+            },
+            {
+                id: 102,
+                operator: "telkomsel",
+                name: "Telkomsel 10K",
+                image: "https://via.placeholder.com/60x60/6c5ce7/ffffff?text=TSEL",
+                price: 10500,
+                description: "Pulsa Rp10.000"
+            },
+            {
+                id: 103,
+                operator: "indosat",
+                name: "Indosat 5K",
+                image: "https://via.placeholder.com/60x60/a363d9/ffffff?text=ISAT",
+                price: 5400,
+                description: "Pulsa Rp5.000"
+            },
+            {
+                id: 104,
+                operator: "indosat",
+                name: "Indosat 10K",
+                image: "https://via.placeholder.com/60x60/a363d9/ffffff?text=ISAT",
+                price: 10400,
+                description: "Pulsa Rp10.000"
+            },
+            {
+                id: 105,
+                operator: "xl",
+                name: "XL 5K",
+                image: "https://via.placeholder.com/60x60/00d2d3/ffffff?text=XL",
+                price: 5400,
+                description: "Pulsa Rp5.000"
+            },
+            {
+                id: 106,
+                operator: "xl",
+                name: "XL 10K",
+                image: "https://via.placeholder.com/60x60/00d2d3/ffffff?text=XL",
+                price: 10400,
+                description: "Pulsa Rp10.000"
+            },
+            {
+                id: 107,
+                operator: "tri",
+                name: "Tri 5K",
+                image: "https://via.placeholder.com/60x60/fdcb6e/ffffff?text=TRI",
+                price: 5300,
+                description: "Pulsa Rp5.000"
+            },
+            {
+                id: 108,
+                operator: "tri",
+                name: "Tri 10K",
+                image: "https://via.placeholder.com/60x60/fdcb6e/ffffff?text=TRI",
+                price: 10300,
+                description: "Pulsa Rp10.000"
+            },
+            {
+                id: 109,
+                operator: "axis",
+                name: "Axis 5K",
+                image: "https://via.placeholder.com/60x60/d63031/ffffff?text=AXIS",
+                price: 5300,
+                description: "Pulsa Rp5.000"
+            },
+            {
+                id: 110,
+                operator: "axis",
+                name: "Axis 10K",
+                image: "https://via.placeholder.com/60x60/d63031/ffffff?text=AXIS",
+                price: 10300,
+                description: "Pulsa Rp10.000"
+            },
+            {
+                id: 111,
+                operator: "smart",
+                name: "Smart 5K",
+                image: "https://via.placeholder.com/60x60/00b894/ffffff?text=SMART",
+                price: 5200,
+                description: "Pulsa Rp5.000"
+            },
+            {
+                id: 112,
+                operator: "smart",
+                name: "Smart 10K",
+                image: "https://via.placeholder.com/60x60/00b894/ffffff?text=SMART",
+                price: 10200,
+                description: "Pulsa Rp10.000"
+            }
+        ];
+
+        // Variabel global
+        let currentProduct = null;
+
+        // Load games saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            loadGames();
+            loadPulsa();
+            setupEventListeners();
+        });
+
+        // Fungsi format Rupiah
+        function formatRupiah(angka) {
+            return new Intl.NumberFormat('id-ID').format(angka);
+        }
+
+        // Load games ke grid
+        function loadGames() {
+            const gamesContainer = document.getElementById('gamesContainer');
+            gamesContainer.innerHTML = '';
+            
+            games.forEach(game => {
+                const gameCard = createGameCard(game);
+                gamesContainer.appendChild(gameCard);
+            });
+        }
+
+        // Buat card game dengan event klik
+        function createGameCard(game) {
+            const card = document.createElement('div');
+            card.className = 'game-card';
+            card.innerHTML = `
+                <img src="${game.image}" alt="${game.name}">
+                <div class="game-info">
+                    <h3>${game.name}</h3>
+                    <p>${game.description}</p>
+                    <div class="game-price">Rp ${formatRupiah(game.price)}</div>
+                    <button class="btn-buy" onclick="openOrderModal(${game.id}, 'game')">Beli Sekarang</button>
+                </div>
+            `;
+            return card;
+        }
+
+        // Load pulsa ke grid
+        function loadPulsa(operator = 'all') {
+            const pulsaContainer = document.getElementById('pulsaContainer');
+            pulsaContainer.innerHTML = '';
+            
+            const filtered = operator === 'all' ? pulsaPackages : pulsaPackages.filter(p => p.operator === operator);
+            
+            filtered.forEach(pulsa => {
+                const card = document.createElement('div');
+                card.className = 'pulsa-card';
+                card.innerHTML = `
+                    <img src="${pulsa.image}" alt="${pulsa.name}">
+                    <h3>${pulsa.name}</h3>
+                    <p>${pulsa.description}</p>
+                    <div class="pulsa-price">Rp ${formatRupiah(pulsa.price)}</div>
+                    <button class="btn-buy" onclick="openOrderModal(${pulsa.id}, 'pulsa')" style="width: 100%; padding: 10px;">Beli</button>
+                `;
+                pulsaContainer.appendChild(card);
+            });
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Operator filter
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    loadPulsa(this.dataset.operator);
+                });
+            });
+
+            // Modal close buttons
+            document.querySelectorAll('.close').forEach(closeBtn => {
+                closeBtn.addEventListener('click', function() {
+                    this.closest('.modal').style.display = 'none';
+                });
+            });
+
+            // Login/Register buttons
+            document.querySelector('.btn-login').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('loginModal').style.display = 'block';
+            });
+
+            document.querySelector('.btn-register').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('registerModal').style.display = 'block';
+            });
+
+            // Form submissions
+            document.getElementById('orderForm').addEventListener('submit', handleOrderSubmit);
+            document.getElementById('loginForm').addEventListener('submit', handleLoginSubmit);
+            document.getElementById('registerForm').addEventListener('submit', handleRegisterSubmit);
+            document.getElementById('forgotForm').addEventListener('submit', handleForgotSubmit);
+        }
+
+        // Open order modal
+        function openOrderModal(productId, type) {
+            let product;
+            if (type === 'game') {
+                product = games.find(g => g.id === productId);
+            } else {
+                product = pulsaPackages.find(p => p.id === productId);
+            }
+
+            if (product) {
+                currentProduct = product;
+                document.getElementById('modalProductImage').src = product.image;
+                document.getElementById('modalProductName').textContent = product.name;
+                document.getElementById('modalProductPrice').textContent = `Rp ${formatRupiah(product.price)}`;
+                document.getElementById('summaryPrice').textContent = `Rp ${formatRupiah(product.price)}`;
+                document.getElementById('summaryTotal').textContent = `Rp ${formatRupiah(product.price + 1000)}`;
+                document.getElementById('orderModal').style.display = 'block';
+            }
+        }
+
+        // Handle form submissions
+        function handleOrderSubmit(e) {
+            e.preventDefault();
+            const userId = document.getElementById('userId').value;
+            const zoneId = document.getElementById('zoneId').value;
+            const paymentMethod = document.getElementById('paymentMethod').value;
+            
+            if (userId && paymentMethod) {
+                showNotification('Pesanan berhasil dibuat! Silakan lanjutkan pembayaran.', 'success');
+                document.getElementById('orderModal').style.display = 'none';
+                document.getElementById('orderForm').reset();
+            }
+        }
+
+        function handleLoginSubmit(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            if (email && password) {
+                showNotification('Login berhasil! Selamat datang.', 'success');
+                document.getElementById('loginModal').style.display = 'none';
+                document.getElementById('loginForm').reset();
+            }
+        }
+
+        function handleRegisterSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const phone = document.getElementById('registerPhone').value;
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (password !== confirmPassword) {
+                showNotification('Password tidak sesuai!', 'error');
+                return;
+            }
+            
+            if (name && email && phone && password) {
+                showNotification('Akun berhasil dibuat! Silakan login.', 'success');
+                document.getElementById('registerModal').style.display = 'none';
+                document.getElementById('registerForm').reset();
+            }
+        }
+
+        function handleForgotSubmit(e) {
+            e.preventDefault();
+            const email = document.getElementById('forgotEmail').value;
+            
+            if (email) {
+                showNotification('Link reset password telah dikirim ke email Anda.', 'info');
+                document.getElementById('forgotModal').style.display = 'none';
+                document.getElementById('forgotForm').reset();
+            }
+        }
+
+        // Show notification
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Modal switching
+        document.addEventListener('DOMContentLoaded', function() {
+            if (document.getElementById('showRegisterFromLogin')) {
+                document.getElementById('showRegisterFromLogin').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.getElementById('loginModal').style.display = 'none';
+                    document.getElementById('registerModal').style.display = 'block';
+                });
+            }
+
+            if (document.getElementById('showLoginFromRegister')) {
+                document.getElementById('showLoginFromRegister').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.getElementById('registerModal').style.display = 'none';
+                    document.getElementById('loginModal').style.display = 'block';
+                });
+            }
+
+            if (document.getElementById('forgotPassword')) {
+                document.getElementById('forgotPassword').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.getElementById('loginModal').style.display = 'none';
+                    document.getElementById('forgotModal').style.display = 'block';
+                });
+            }
+
+            if (document.getElementById('backToLogin')) {
+                document.getElementById('backToLogin').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.getElementById('forgotModal').style.display = 'none';
+                    document.getElementById('loginModal').style.display = 'block';
+                });
+            }
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        });
+    </script>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+    <div class="modal-content" style="max-width: 400px;">
+        <div class="modal-header">
+            <h2>Login ke Raxx</h2>
+            <span class="close-login close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email / No. HP</label>
+                    <input type="text" id="loginEmail" name="loginEmail" placeholder="Masukkan email atau no. HP" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" name="loginPassword" placeholder="Masukkan password" required>
+                </div>
+                
+                <div class="form-group" style="text-align: right;">
+                    <a href="#" id="forgotPassword" style="color: var(--primary-color); text-decoration: none;">Lupa Password?</a>
+                </div>
+                
+                <button type="submit" class="btn-order" style="margin-bottom: 15px;">Login</button>
+                
+                <div style="text-align: center; margin-top: 15px; padding-top: 15px; border-top: 1px solid #ddd;">
+                    <p>Belum punya akun? <a href="#" id="showRegisterFromLogin" style="color: var(--primary-color); text-decoration: none; font-weight: bold;">Daftar Sekarang</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Register Modal -->
+<div id="registerModal" class="modal">
+    <div class="modal-content" style="max-width: 500px;">
+        <div class="modal-header">
+            <h2>Daftar Akun Raxx</h2>
+            <span class="close-register close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="registerName">Nama Lengkap</label>
+                    <input type="text" id="registerName" name="registerName" placeholder="Masukkan nama lengkap" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" name="registerEmail" placeholder="Masukkan email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="registerPhone">No. HP</label>
+                    <input type="tel" id="registerPhone" name="registerPhone" placeholder="Masukkan no. HP" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" name="registerPassword" placeholder="Minimal 6 karakter" minlength="6" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">Konfirmasi Password</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Masukkan ulang password" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Jenis Akun</label>
+                    <div style="display: flex; gap: 20px; margin-top: 5px;">
+                        <label style="display: flex; align-items: center; gap: 5px;">
+                            <input type="radio" name="accountType" value="customer" checked> Customer
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 5px;">
+                            <input type="radio" name="accountType" value="reseller"> Reseller
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label style="display: flex; align-items: center; gap: 10px;">
+                        <input type="checkbox" id="terms" required>
+                        <span>Saya menyetujui <a href="#" style="color: var(--primary-color);">Syarat & Ketentuan</a> dan <a href="#" style="color: var(--primary-color);">Kebijakan Privasi</a></span>
+                    </label>
+                </div>
+                
+                <button type="submit" class="btn-order" style="margin-bottom: 15px;">Daftar</button>
+                
+                <div style="text-align: center; margin-top: 15px; padding-top: 15px; border-top: 1px solid #ddd;">
+                    <p>Sudah punya akun? <a href="#" id="showLoginFromRegister" style="color: var(--primary-color); text-decoration: none; font-weight: bold;">Login</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Forgot Password Modal -->
+<div id="forgotModal" class="modal">
+    <div class="modal-content" style="max-width: 400px;">
+        <div class="modal-header">
+            <h2>Lupa Password</h2>
+            <span class="close-forgot close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <p style="margin-bottom: 20px;">Masukkan email atau no. HP Anda untuk mereset password.</p>
+            <form id="forgotForm">
+                <div class="form-group">
+                    <label for="forgotEmail">Email / No. HP</label>
+                    <input type="text" id="forgotEmail" name="forgotEmail" placeholder="Masukkan email atau no. HP" required>
+                </div>
+                
+                <button type="submit" class="btn-order" style="margin-bottom: 15px;">Kirim Link Reset</button>
+                
+                <div style="text-align: center;">
+                    <a href="#" id="backToLogin" style="color: var(--primary-color); text-decoration: none;">Kembali ke Login</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
